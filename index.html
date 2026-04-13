@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>STUDIO303 — 個人開発スタジオ</title>
+  <meta name="description" content="STUDIO303は、日常をちょっと便利にするアプリを個人開発しています。">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #111;
+      --gray-dark: #444;
+      --gray: #888;
+      --gray-light: #ccc;
+      --bg: #fafafa;
+      --white: #fff;
+      --accent: #222;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', 'Noto Sans JP', sans-serif;
+      background: var(--bg);
+      color: var(--black);
+      font-size: 16px;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(250, 250, 250, 0.92);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid #e8e8e8;
+      padding: 0 40px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .logo {
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    nav a {
+      font-size: 13px;
+      color: var(--gray-dark);
+      text-decoration: none;
+      margin-left: 28px;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--black); }
+
+    /* ── Sections ── */
+    section { padding: 100px 40px; }
+    .container { max-width: 760px; margin: 0 auto; }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative;
+      padding-top: 160px;
+      padding-bottom: 120px;
+      text-align: center;
+      background-image: url('charlesdeluvio-Lks7vei-eAg-unsplash.jpg');
+      background-size: cover;
+      background-position: center 30%;
+      overflow: hidden;
+    }
+
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0.7);
+    }
+
+    #hero .container {
+      position: relative;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--gray-dark);
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    .hero-title {
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      line-height: 1.1;
+      color: var(--black);
+      margin-bottom: 28px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--gray-dark);
+      max-width: 440px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .divider {
+      width: 40px;
+      height: 1px;
+      background: var(--gray-light);
+      margin: 60px auto;
+    }
+
+    /* ── About ── */
+    #about .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    #about h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      line-height: 1.4;
+    }
+
+    #about p {
+      font-size: 15px;
+      color: var(--gray-dark);
+      line-height: 1.9;
+      max-width: 600px;
+    }
+
+    #about p + p { margin-top: 16px; }
+
+    /* ── Apps ── */
+    #apps { background: var(--white); }
+
+    #apps .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    #apps h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 48px;
+    }
+
+    .app-card {
+      border: 1px solid #e8e8e8;
+      border-radius: 12px;
+      padding: 36px;
+      background: var(--bg);
+      display: flex;
+      gap: 28px;
+      align-items: flex-start;
+    }
+
+    .app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      background: #f0f0f0;
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .app-icon-placeholder {
+      font-size: 28px;
+    }
+
+    .app-info { flex: 1; }
+
+    .app-name {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      letter-spacing: 0.02em;
+    }
+
+    .app-tag {
+      display: inline-block;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--gray);
+      border: 1px solid var(--gray-light);
+      border-radius: 4px;
+      padding: 2px 8px;
+      margin-bottom: 12px;
+    }
+
+    .app-desc {
+      font-size: 14px;
+      color: var(--gray-dark);
+      line-height: 1.8;
+    }
+
+    .app-links {
+      margin-top: 20px;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      padding: 9px 18px;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+    }
+    .btn-primary:hover { background: #333; }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--black);
+      border: 1px solid #ccc;
+    }
+    .btn-secondary:hover { border-color: var(--black); }
+
+    .btn-coming-soon {
+      background: transparent;
+      color: var(--gray);
+      border: 1px solid var(--gray-light);
+      cursor: default;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      padding: 9px 18px;
+      border-radius: 6px;
+    }
+
+    /* ── Contact ── */
+    #contact { text-align: center; }
+
+    #contact .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      color: var(--gray);
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+
+    #contact h2 {
+      font-size: 26px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    #contact p {
+      font-size: 15px;
+      color: var(--gray-dark);
+      margin-bottom: 32px;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      border-bottom: 1px solid var(--black);
+      padding-bottom: 2px;
+      transition: opacity 0.2s;
+    }
+    .contact-email:hover { opacity: 0.6; }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid #e8e8e8;
+      padding: 32px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-logo {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      color: var(--black);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--gray);
+      text-decoration: none;
+      letter-spacing: 0.05em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--black); }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--gray);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header { padding: 0 20px; }
+      section { padding: 80px 20px; }
+      #hero { padding-top: 120px; }
+
+      .app-card {
+        flex-direction: column;
+        padding: 24px;
+      }
+
+      footer {
+        padding: 24px 20px;
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <a href="#" class="logo">STUDIO303</a>
+    <nav>
+      <a href="#about">About</a>
+      <a href="#apps">Apps</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="container">
+      <p class="hero-label">Independent App Studio</p>
+      <h1 class="hero-title">STUDIO303</h1>
+      <p class="hero-sub">日常をちょっと便利にする、シンプルなアプリを作っています。</p>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- About -->
+  <section id="about">
+    <div class="container">
+      <p class="section-label">About</p>
+      <h2>個人開発スタジオです。</h2>
+      <p>STUDIO303は、ひとりで運営している個人アプリ開発スタジオです。</p>
+      <p>「あったらいいな」をかたちにすることをモットーに、使いやすくシンプルなアプリを開発・公開しています。</p>
+    </div>
+  </section>
+
+  <!-- Apps -->
+  <section id="apps">
+    <div class="container">
+      <p class="section-label">Apps</p>
+      <h2>アプリ一覧</h2>
+
+      <div class="app-card">
+        <div class="app-icon">
+          <img src="icon.png" alt="Beauty Budget">
+        </div>
+        <div class="app-info">
+          <p class="app-name">Beauty Budget</p>
+          <span class="app-tag">ライフスタイル</span>
+          <p class="app-desc">
+            美容費の予算・支出を手軽に管理できるアプリです。<br>
+            スキンケア・コスメ・美容院など、カテゴリ別に記録して予算オーバーを防ぎます。
+          </p>
+          <div class="app-links">
+            <span class="btn btn-coming-soon">Google Play — 準備中</span>
+            <span class="btn btn-coming-soon">App Store — 準備中</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Contact -->
+  <section id="contact">
+    <div class="container">
+      <p class="section-label">Contact</p>
+      <h2>お問い合わせ</h2>
+      <p>アプリに関するご意見・ご要望・不具合のご報告はこちらへ。</p>
+      <a href="mailto:studio303@app-notice.com" class="contact-email">studio303@app-notice.com</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <span class="footer-logo">STUDIO303</span>
+    <div class="footer-links">
+      <a href="privacy.html">プライバシーポリシー</a>
+    </div>
+    <span class="footer-copy">© 2025 STUDIO303</span>
+  </footer>
+
+</body>
+</html>
